@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amir Sotoudehnia Korani — Portfolio & Apps</title>
+  <meta name="description" content="Portfolio website for Amir Sotoudehnia Korani — software developer. Resume, apps (TiLECAT, FlashMind, MindTick, and more), contact, and links." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    :root{
+      --brand:#5b7cfa;/* accent */
+      --brand-2:#00d4ff;/* accent 2 */
+      --bg-grad: linear-gradient(135deg, rgba(91,124,250,.12), rgba(0,212,255,.12));
+    }
+    html{scroll-behavior:smooth}
+    body{background: #0b0d14; color:#e9eefb}
+    .navbar{--bs-navbar-color:#cfd8ff; --bs-navbar-brand-color:#fff; --bs-navbar-hover-color:#fff}
+    .navbar .nav-link.active{color:#fff !important}
+    .hero{background: radial-gradient(1200px 600px at 10% -10%, rgba(91,124,250,.35), transparent 60%),
+                    radial-gradient(1200px 600px at 110% 10%, rgba(0,212,255,.25), transparent 60%),
+                    var(--bg-grad);
+          padding: 8rem 0 6rem}
+    .badge-soft{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); color:#e9eefb}
+    .section{padding:5rem 0}
+    .card{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08)}
+    .card:hover{transform:translateY(-4px); transition:transform .2s ease}
+    .shadow-soft{box-shadow: 0 10px 30px rgba(0,0,0,.25)}
+    .text-gradient{background: linear-gradient(90deg, #fff, #9bb0ff, #7df); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .avatar{width:112px; height:112px; border-radius:50%; border:3px solid rgba(255,255,255,.3); object-fit:cover}
+    .timeline:before{content:""; position:absolute; left:1.1rem; top:0; bottom:0; width:2px; background:rgba(255,255,255,.15)}
+    .timeline-item{position:relative; padding-left:3rem}
+    .timeline-item::before{content:""; position:absolute; left:.65rem; top:.6rem; width:12px; height:12px; border-radius:50%; background:var(--brand)}
+    a.link-fancy{color:#bcd1ff; text-decoration:none}
+    a.link-fancy:hover{color:#fff; text-decoration:underline}
+    footer{border-top:1px solid rgba(255,255,255,.08)}
+    .btn-brand{--bs-btn-bg:var(--brand); --bs-btn-border-color:var(--brand); --bs-btn-hover-bg:#4a6cf7; --bs-btn-hover-border-color:#4a6cf7}
+    .app-badge{height:40px}
+    .icon-32{font-size:1.25rem}
+    .tag{display:inline-block; padding:.35rem .6rem; border-radius:999px; font-size:.8rem; margin:.15rem; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1)}
+    .kpis .card{min-height:120px}
+    /* small tweaks on mobile */
+    @media (max-width: 576px){ .hero{padding:6rem 0 4rem} }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg fixed-top bg-transparent">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#home">Amir SK</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#apps">Apps</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#resume">Resume</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="home" class="hero">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <img src="https://avatars.githubusercontent.com/u/00000000?v=4" alt="Amir avatar" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Amir+SK&background=5b7cfa&color=fff'"/>
+            <div>
+              <div class="badge badge-soft">Based in Växjö, Sweden</div>
+              <h1 class="display-5 fw-bold mt-2 text-gradient">Amir Sotoudehnia Korani</h1>
+              <p class="lead mb-0">Software & Mobile Developer — Flutter / Android (Kotlin) / React Native — building delightful apps like <strong>TiLECAT</strong>, <strong>FlashMind</strong>, and <strong>MindTick</strong>.</p>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
+            <span class="tag">Flutter</span><span class="tag">Kotlin</span><span class="tag">Android</span><span class="tag">iOS</span><span class="tag">Hive</span><span class="tag">Notifications</span><span class="tag">Play Store & App Store</span>
+          </div>
+          <div class="mt-4 d-flex gap-2">
+            <a class="btn btn-brand" href="#apps"><i class="bi bi-grid-3x3-gap-fill me-1"></i> See my apps</a>
+            <a class="btn btn-outline-light" href="#resume"><i class="bi bi-file-earmark-text me-1"></i> Resume</a>
+            <a class="btn btn-outline-light" target="_blank" href="https://github.com/Amir-Korani"><i class="bi bi-github me-1"></i> GitHub</a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="kpis row g-3">
+            <div class="col-6">
+              <div class="card shadow-soft text-center p-3">
+                <div class="fs-3 fw-bold">10k+</div>
+                <div class="small text-secondary">Lines of code</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="card shadow-soft text-center p-3">
+                <div class="fs-3 fw-bold">6</div>
+                <div class="small text-secondary">Published projects</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card shadow-soft text-center p-3">
+                <div class="fs-3 fw-bold">3+</div>
+                <div class="small text-secondary">Years building apps</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- APPS -->
+  <section id="apps" class="section">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-end mb-4">
+        <h2 class="fw-bold m-0">Featured Apps</h2>
+        <a class="link-fancy" href="#projects">View all projects →</a>
+      </div>
+
+      <div class="row g-4">
+        <!-- TiLECAT -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start">
+                <h5 class="card-title">TiLECAT</h5>
+                <span class="badge bg-primary">Game</span>
+              </div>
+              <p class="card-text">A playful, cat-friendly game with big tiles, gentle sounds, and fireworks/particle effects for feline fun. Built with Flutter/Flame.
+              </p>
+              <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
+                <img class="app-badge" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" />
+                <img class="app-badge" src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" />
+                <a class="btn btn-sm btn-outline-light" href="https://cafebazaar.ir/" target="_blank" rel="noopener">Café Bazaar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- FlashMind -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start">
+                <h5 class="card-title">FlashMind</h5>
+                <span class="badge bg-success">Productivity</span>
+              </div>
+              <p class="card-text">Leitner-based flashcard app with daily review, quiz mode, categories, and smart notifications. Built with Flutter + Hive.
+              </p>
+              <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
+                <img class="app-badge" src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" />
+                <a class="btn btn-sm btn-outline-light" href="#" target="_blank" rel="noopener">Website</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- MindTick -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start">
+                <h5 class="card-title">MindTick</h5>
+                <span class="badge bg-warning text-dark">Utilities</span>
+              </div>
+              <p class="card-text">A clean reminder app with TTS alerts, exact alarms, voice input, and schedule customization. Kotlin (Android) & Flutter variants.
+              </p>
+              <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
+                <img class="app-badge" src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" />
+                <a class="btn btn-sm btn-outline-light" href="#" target="_blank" rel="noopener">GitHub</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mt-1">
+        <!-- Velvet Hunt -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start">
+                <h5 class="card-title">Velvet Hunt</h5>
+                <span class="badge bg-primary">Game</span>
+              </div>
+              <p class="card-text">Arcade prototype featuring particle effects and responsive controls. Flutter/Flame with polished UX and analytics hooks.</p>
+              <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
+                <a class="btn btn-sm btn-outline-light" href="#" target="_blank" rel="noopener">GitHub</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- TiLEHDOG -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start">
+                <h5 class="card-title">TiLEHDOG (upcoming)</h5>
+                <span class="badge bg-secondary">Coming Soon</span>
+              </div>
+              <p class="card-text">Dog-friendly version of TiLECAT with adapted sounds, colors, and difficulty tuned for paws.</p>
+              <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
+                <a class="btn btn-sm btn-outline-light" href="#" target="_blank" rel="noopener">Dev Log</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- MyAI Agent -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start">
+                <h5 class="card-title">MyAI Agent</h5>
+                <span class="badge bg-info text-dark">R&D</span>
+              </div>
+              <p class="card-text">Local LLaMA-powered assistant with Gmail integration, supplier search, and automated workflows. Python/Flask + Playwright.</p>
+              <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
+                <a class="btn btn-sm btn-outline-light" href="#" target="_blank" rel="noopener">GitHub</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS (detailed) -->
+  <section id="projects" class="section">
+    <div class="container">
+      <h2 class="fw-bold mb-4">Projects</h2>
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5>Ad & IAP Integrations</h5>
+              <p>Google Mobile Ads (AdMob) with consent (UMP), in‑app purchases/subscriptions, and fallback ad networks. Implemented mediation, test tracks, and store policies.</p>
+              <div class="small">Stack: Flutter, Kotlin, Swift, StoreKit, Play Billing.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5>Automation & Scraping</h5>
+              <p>Supplier price comparison tool with Playwright, OCR (Tesseract), and SerpAPI—extracts product data and drafts emails for orders.</p>
+              <div class="small">Stack: Python, Flask, Playwright, OCR, Gmail API.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUME -->
+  <section id="resume" class="section">
+    <div class="container">
+      <div class="row g-4 align-items-start">
+        <div class="col-lg-5">
+          <div class="card p-4 h-100">
+            <h3 class="fw-bold mb-3">About</h3>
+            <p>Mobile & software developer with a focus on delightful UX, reliable notifications, and clean architecture. Comfortable shipping to Google Play, App Store, and Café Bazaar. Open to collaborations in Sweden and remote.</p>
+            <div class="mb-3">
+              <div class="fw-semibold">Core Skills</div>
+              <div>
+                <span class="tag">Flutter/Flame</span>
+                <span class="tag">Android (Kotlin)</span>
+                <span class="tag">iOS & Xcode</span>
+                <span class="tag">Hive / Room</span>
+                <span class="tag">Play Billing / StoreKit</span>
+                <span class="tag">Notifications & TTS</span>
+                <span class="tag">Bootstrap</span>
+                <span class="tag">Python/Flask</span>
+              </div>
+            </div>
+            <div class="d-flex gap-2 flex-wrap">
+              <a class="btn btn-outline-light" href="./Amir-Sotoudehnia-Korani-CV.pdf" target="_blank"><i class="bi bi-download me-1"></i> Download CV</a>
+              <a class="btn btn-outline-light" href="mailto:makhmaldev@gmail.com"><i class="bi bi-envelope me-1"></i> Email me</a>
+              <a class="btn btn-outline-light" href="https://github.com/Amir-Korani" target="_blank"><i class="bi bi-github me-1"></i> GitHub</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="position-relative timeline ps-2">
+            <div class="timeline-item mb-4">
+              <h5 class="mb-1">Mobile Developer — Independent</h5>
+              <div class="small text-secondary">2023 — Present · Växjö, Sweden</div>
+              <p class="mb-2">Built and shipped TiLECAT, FlashMind, and MindTick. Implemented ads/IAP, analytics, CI builds, and store listings. Iterated on UX with user feedback.</p>
+              <div class="small">Tech: Flutter, Kotlin, Hive, Notifications, Play Billing, StoreKit, Bootstrap.</div>
+            </div>
+            <div class="timeline-item mb-4">
+              <h5 class="mb-1">IT Manager — Tejarat Bank (Inspection Building)</h5>
+              <div class="small text-secondary">Tehran, Iran</div>
+              <p class="mb-2">Managed IT lifecycle, deployments, and security baselines. Coordinated with cross‑functional teams and ensured uptime for critical systems.</p>
+            </div>
+            <div class="timeline-item mb-4">
+              <h5 class="mb-1">IT Lifecycle Mgmt — Pars Company</h5>
+              <div class="small text-secondary">Iran</div>
+              <p class="mb-2">Handled asset lifecycle, procurement, and support. Improved processes and documentation.</p>
+            </div>
+            <div class="timeline-item">
+              <h5 class="mb-1">M.Sc. Studies — Linnaeus University (LNU)</h5>
+              <div class="small text-secondary">Växjö, Sweden</div>
+              <p class="mb-2">Media Technology focus. Thesis on app UX and ethical considerations (in revision).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <h2 class="fw-bold">Let's build something</h2>
+          <p>If you'd like to collaborate or have questions about my apps, just send me an email. I'm open to contract work and partnerships.</p>
+          <div class="d-flex gap-3 align-items-center">
+            <a class="btn btn-brand" href="mailto:makhmaldev@gmail.com"><i class="bi bi-send me-1"></i> Contact</a>
+            <a class="link-fancy" href="https://github.com/Amir-Korani" target="_blank"><i class="bi bi-github me-1"></i> GitHub</a>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card p-4">
+            <div class="d-flex align-items-center mb-2"><i class="bi bi-geo-alt icon-32 me-2"></i> Växjö, Sweden</div>
+            <div class="d-flex align-items-center mb-2"><i class="bi bi-envelope icon-32 me-2"></i> <a class="link-fancy" href="mailto:makhmaldev@gmail.com">makhmaldev@gmail.com</a></div>
+            <div class="d-flex align-items-center mb-2"><i class="bi bi-link-45deg icon-32 me-2"></i> <a class="link-fancy" target="_blank" href="https://amir-korani.github.io/">amir-korani.github.io</a></div>
+            <div class="small text-secondary">Tip: Host this page with GitHub Pages (Settings → Pages). Put this file at the root of <code>Amir-Korani/amir-korani.github.io</code> repo, or in <code>/docs</code> and point Pages there.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-4">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center">
+      <div class="small text-secondary">© <span id="y"></span> Amir Sotoudehnia Korani</div>
+      <div class="d-flex gap-3">
+        <a class="link-fancy" href="#home">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Schema.org for better SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Amir Sotoudehnia Korani",
+    "url": "https://amir-korani.github.io/",
+    "email": "mailto:makhmaldev@gmail.com",
+    "jobTitle": "Software & Mobile Developer",
+    "address": {"@type":"PostalAddress","addressLocality":"Växjö","addressCountry":"SE"},
+    "sameAs": [
+      "https://github.com/Amir-Korani"
+    ],
+    "knowsAbout": ["Flutter", "Kotlin", "Android", "iOS", "Play Billing", "StoreKit", "Notifications", "TTS"]
+  }
+  </script>
+
+  <script>
+    // set current year
+    document.getElementById('y').textContent = new Date().getFullYear();
+    // mark active nav link on scroll
+    const sections = ['home','apps','projects','resume','contact'];
+    const links = sections.map(id=>({id, el: document.querySelector(`a.nav-link[href="#${id}"]`)}));
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        const link = links.find(l=>`#${l.id}`===`#${e.target.id}`);
+        if(link && e.isIntersecting){
+          document.querySelectorAll('.nav-link').forEach(a=>a.classList.remove('active'));
+          link.el?.classList.add('active');
+        }
+      })
+    }, {root:null, threshold:.6});
+    sections.forEach(id=>{const s=document.getElementById(id); if(s) obs.observe(s)});
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
