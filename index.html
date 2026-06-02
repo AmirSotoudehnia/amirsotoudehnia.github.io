@@ -7,7 +7,7 @@
 
   <meta name="description" content="Portfolio of Amir Sotoudehnia Korani — Software Engineer (Python/Backend) with applied AI/ML projects, apps, and contact links." />
 
-  <!-- Open Graph (nice previews in LinkedIn/email) -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Amir Sotoudehnia Korani — Portfolio" />
   <meta property="og:description" content="Software Engineer (Python/Backend) with applied AI/ML projects, published apps, and contact links." />
   <meta property="og:url" content="https://amirsotoudehnia.github.io/" />
@@ -30,15 +30,23 @@
     html{scroll-behavior:smooth}
     body{ color:var(--text); background:var(--bg); }
 
+    /* ── Navbar ── */
     .navbar{
       --bs-navbar-color:#0b1220;
       --bs-navbar-brand-color:#2563eb;
       --bs-navbar-hover-color:var(--brand);
+      transition: background .25s ease, box-shadow .25s ease;
+    }
+    .navbar.scrolled{
+      background: rgba(246,249,252,.92) !important;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 12px rgba(15,23,42,.08);
     }
     .navbar .nav-link.active{ color:var(--brand)!important; }
     .navbar-toggler{ border-color: rgba(15,23,42,.2); }
     .navbar-toggler-icon{ filter: invert(0.2); }
 
+    /* ── Hero ── */
     .hero{
       background:
         radial-gradient(1200px 600px at 10% -10%, rgba(91,124,250,.20), transparent 60%),
@@ -53,6 +61,7 @@
       color: #1e3a8a;
     }
 
+    /* ── Cards ── */
     .section{padding:5rem 0}
     .card{ background:var(--card); border:1px solid var(--border); }
     .card:hover{transform:translateY(-4px); transition:transform .2s ease}
@@ -102,9 +111,13 @@
       color: #0b1220;
     }
 
+    /* ── KPI cards ── */
+    .kpis .card{ min-height:110px; }
+    .kpi-number{ font-size:2rem; font-weight:800; line-height:1; color:var(--brand); }
+    .kpi-label{ font-size:.78rem; color:var(--muted); margin-top:.35rem; }
+
     .app-badge{height:40px}
     .icon-32{font-size:1.25rem}
-    .kpis .card{min-height:120px}
 
     @media (max-width: 576px){ .hero{padding:6rem 0 4rem} }
   </style>
@@ -112,7 +125,7 @@
 
 <body>
   <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg fixed-top bg-transparent">
+  <nav class="navbar navbar-expand-lg fixed-top bg-transparent" id="navbar">
     <div class="container">
       <a class="navbar-brand fw-bold" href="#home">Amir</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,16 +150,15 @@
           <div class="d-flex align-items-center gap-3 mb-3">
             <img
               src="Amir.jpeg"
-              alt="Amir avatar"
+              alt="Amir Sotoudehnia Korani"
               class="avatar"
               onerror="this.onerror=null;this.src='https://avatars.githubusercontent.com/u/104729197?v=4';"
             />
-
             <div>
               <div class="badge badge-soft">Based in Växjö, Sweden</div>
               <h1 class="display-5 fw-bold mt-2 text-gradient">Amir Sotoudehnia Korani</h1>
               <p class="lead mb-0">
-                Software Engineer — Python/Backend & Mobile — building apps and applied AI/ML systems.
+                Software Engineer — Python/Backend &amp; Mobile — building apps and applied AI/ML systems.
               </p>
             </div>
           </div>
@@ -158,14 +170,14 @@
             <span class="tag">Applied ML</span>
             <span class="tag">Flutter</span>
             <span class="tag">Kotlin</span>
-            <span class="tag">Notifications</span>
+            <span class="tag">Chrome Extensions</span>
           </div>
 
           <div class="mt-4 d-flex gap-2 flex-wrap">
             <a class="btn btn-brand" href="#projects"><i class="bi bi-cpu-fill me-1"></i> AI / ML Projects</a>
             <a class="btn btn-outline-light" href="#apps"><i class="bi bi-grid-3x3-gap-fill me-1"></i> Apps</a>
             <a class="btn btn-outline-light" href="#resume"><i class="bi bi-file-earmark-text me-1"></i> Resume</a>
-            <a class="btn btn-outline-light" target="_blank" href="https://github.com/USERNAME"><i class="bi bi-github me-1"></i> GitHub</a>
+            <a class="btn btn-outline-light" target="_blank" href="https://github.com/AmirSotoudehnia" rel="noopener"><i class="bi bi-github me-1"></i> GitHub</a>
           </div>
         </div>
 
@@ -173,27 +185,25 @@
           <div class="kpis row g-3">
             <div class="col-6">
               <div class="card shadow-soft text-center p-3">
-                <div class="fs-3 fw-bold">End-to-End</div>
-                <div class="small text-secondary">ML pipeline + API</div>
+                <div class="kpi-number">5+</div>
+                <div class="kpi-label">Years of Experience</div>
               </div>
             </div>
             <div class="col-6">
               <div class="card shadow-soft text-center p-3">
-                <div class="fs-3 fw-bold">Docker</div>
-                <div class="small text-secondary">Deployment ready</div>
+                <div class="kpi-number">4+</div>
+                <div class="kpi-label">Shipped Apps &amp; Extensions</div>
               </div>
             </div>
             <div class="col-12">
               <div class="card shadow-soft text-center p-3">
-                <div class="fs-3 fw-bold">Växjö</div>
-                <div class="small text-secondary">Available locally / hybrid</div>
+                <div class="kpi-number" style="font-size:1.4rem">End-to-End</div>
+                <div class="kpi-label">Data → Model → API → Production</div>
               </div>
             </div>
           </div>
-          <div class="small text-secondary mt-2">
-            (KPIs kept conservative on purpose — easy to defend in interviews.)
-          </div>
         </div>
+
       </div>
     </div>
   </header>
@@ -202,11 +212,12 @@
   <section id="apps" class="section">
     <div class="container">
       <div class="d-flex justify-content-between align-items-end mb-4">
-        <h2 class="fw-bold m-0">Featured Apps</h2>
+        <h2 class="fw-bold m-0">Featured Apps &amp; Extensions</h2>
         <a class="link-fancy" href="#projects">View AI/ML projects →</a>
       </div>
 
       <div class="row g-4">
+
         <!-- TiLECAT -->
         <div class="col-md-6 col-lg-4">
           <div class="card h-100">
@@ -255,10 +266,31 @@
                 <span class="badge bg-warning text-dark">Utilities</span>
               </div>
               <p class="card-text">
-                Reminder app with alarms, voice/notification features. Kotlin (Android) & Flutter variants.
+                Reminder app with alarms, voice/notification features. Kotlin (Android) &amp; Flutter variants.
               </p>
               <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
                 <span class="badge bg-info text-dark">Coming soon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Daily Spark -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start">
+                <h5 class="card-title">Daily Spark</h5>
+                <span class="badge bg-secondary">Chrome Extension</span>
+              </div>
+              <p class="card-text">
+                A Chrome extension that shows a daily motivational quote, live weather (Open-Meteo), and top Hacker News headlines — no API key needed.
+              </p>
+              <div class="small text-secondary mb-3">Stack: Vanilla JS, Manifest V3, Open-Meteo API, HN API</div>
+              <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
+                <a class="btn btn-sm btn-outline-light" href="https://github.com/AmirSotoudehnia/daily-spark-english" target="_blank" rel="noopener">
+                  <i class="bi bi-github me-1"></i> GitHub
+                </a>
               </div>
             </div>
           </div>
@@ -271,9 +303,10 @@
   <!-- PROJECTS -->
   <section id="projects" class="section">
     <div class="container">
-      <h2 class="fw-bold mb-4">AI / ML & Engineering Projects</h2>
+      <h2 class="fw-bold mb-4">AI / ML &amp; Engineering Projects</h2>
 
       <div class="row g-4">
+
         <!-- Ticket Classifier -->
         <div class="col-lg-6">
           <div class="card h-100 shadow-soft">
@@ -283,24 +316,18 @@
                 <span class="badge bg-info text-dark">AI/ML</span>
               </div>
               <p class="mb-2">
-                End-to-end ML pipeline: data loading, preprocessing, training & evaluation, and deployment as a FastAPI inference service.
+                End-to-end ML pipeline: data loading, preprocessing, training &amp; evaluation, and deployment as a FastAPI inference service.
               </p>
               <div class="small text-secondary mb-3">
                 Stack: Python, scikit-learn, FastAPI, Docker, CI (GitHub Actions)
               </div>
-
-            
               <div class="d-flex gap-2 flex-wrap">
-                <a class="btn btn-sm btn-brand" target="_blank" rel="noopener" href=" https://github.com/AmirSotoudehnia/ticket-classifier">
+                <a class="btn btn-sm btn-brand" target="_blank" rel="noopener" href="https://github.com/AmirSotoudehnia/ticket-classifier">
                   <i class="bi bi-github me-1"></i> GitHub Repo
                 </a>
                 <a class="btn btn-sm btn-outline-light" href="#resume">
                   <i class="bi bi-file-earmark-text me-1"></i> Mentioned in CV
                 </a>
-              </div>
-
-              <div class="small text-secondary mt-3">
-               
               </div>
             </div>
           </div>
@@ -310,7 +337,7 @@
         <div class="col-lg-6">
           <div class="card h-100">
             <div class="card-body">
-              <h5>Automation & Scraping (R&D)</h5>
+              <h5>Automation &amp; Scraping (R&amp;D)</h5>
               <p>
                 Supplier comparison tool using Playwright + OCR + search; extracts product data and drafts emails for orders.
               </p>
@@ -323,7 +350,7 @@
         <div class="col-lg-6">
           <div class="card h-100">
             <div class="card-body">
-              <h5>Ad & IAP Integrations</h5>
+              <h5>Ad &amp; IAP Integrations</h5>
               <p>
                 Implemented AdMob + consent flows, in-app purchases/subscriptions, and store policy compliance.
               </p>
@@ -362,7 +389,7 @@
             </p>
 
             <div class="mb-3">
-              <div class="fw-semibold">Core Skills</div>
+              <div class="fw-semibold mb-1">Core Skills</div>
               <div>
                 <span class="tag">Python</span>
                 <span class="tag">FastAPI</span>
@@ -370,6 +397,8 @@
                 <span class="tag">scikit-learn</span>
                 <span class="tag">Flutter</span>
                 <span class="tag">Kotlin</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Chrome Extensions</span>
               </div>
             </div>
 
@@ -380,7 +409,7 @@
               <a class="btn btn-outline-light" href="mailto:amir.sotoudehnia@gmail.com">
                 <i class="bi bi-envelope me-1"></i> Email me
               </a>
-              <a class="btn btn-outline-light" href="https://github.com/amirsotoudehnia" target="_blank" rel="noopener">
+              <a class="btn btn-outline-light" href="https://github.com/AmirSotoudehnia" target="_blank" rel="noopener">
                 <i class="bi bi-github me-1"></i> GitHub
               </a>
             </div>
@@ -391,12 +420,12 @@
           <div class="card p-4 h-100">
             <h3 class="fw-bold mb-3">Quick Timeline</h3>
             <ul class="mb-0">
-              <li class="mb-2"><strong>2026:</strong> M.Sc. (Linnaeus University) — Social Media & Web Technologies</li>
-              <li class="mb-2"><strong>2023–Now:</strong> Built and shipped apps; backend + automation projects</li>
+              <li class="mb-2"><strong>2026:</strong> M.Sc. (Linnaeus University) — Social Media &amp; Web Technologies</li>
+              <li class="mb-2"><strong>2023–Now:</strong> Built and shipped apps, Chrome extensions, and backend/automation projects</li>
               <li class="mb-2"><strong>2013–2018:</strong> IT lifecycle management + Python automation (Tehran)</li>
             </ul>
             <div class="small text-secondary mt-3">
-              (Full details available in the CV PDF.)
+              Full details available in the CV PDF.
             </div>
           </div>
         </div>
@@ -412,12 +441,12 @@
         <div class="col-lg-7">
           <h2 class="fw-bold">Contact</h2>
           <p>
-            Interested in collaborating or hiring? Send me an email — I’m available in Växjö and open to hybrid/remote opportunities.
+            Interested in collaborating or hiring? Send me an email — I'm available in Växjö and open to hybrid/remote opportunities.
           </p>
           <div class="d-flex gap-3 align-items-center flex-wrap">
             <a class="btn btn-brand" href="mailto:amir.sotoudehnia@gmail.com"><i class="bi bi-send me-1"></i> Email</a>
-            <a class="link-fancy" href="https://github.com/USERNAME" target="_blank" rel="noopener"><i class="bi bi-github me-1"></i> GitHub</a>
-            <a class="link-fancy" href="https://USERNAME.github.io/" target="_blank" rel="noopener"><i class="bi bi-link-45deg me-1"></i> Website</a>
+            <a class="link-fancy" href="https://github.com/AmirSotoudehnia" target="_blank" rel="noopener"><i class="bi bi-github me-1"></i> GitHub</a>
+            <a class="link-fancy" href="https://amirsotoudehnia.github.io/" target="_blank" rel="noopener"><i class="bi bi-link-45deg me-1"></i> Website</a>
           </div>
         </div>
 
@@ -430,7 +459,7 @@
             </div>
             <div class="d-flex align-items-center mb-2">
               <i class="bi bi-link-45deg icon-32 me-2"></i>
-              <a class="link-fancy" target="_blank" rel="noopener" href="https://USERNAME.github.io/">USERNAME.github.io</a>
+              <a class="link-fancy" target="_blank" rel="noopener" href="https://amirsotoudehnia.github.io/">amirsotoudehnia.github.io</a>
             </div>
           </div>
         </div>
@@ -459,27 +488,34 @@
     "jobTitle": "Software Engineer",
     "address": {"@type":"PostalAddress","addressLocality":"Växjö","addressCountry":"SE"},
     "sameAs": [
-      "https://github.com/amirsotoudehnia"
+      "https://github.com/AmirSotoudehnia"
     ],
-    "knowsAbout": ["Python", "FastAPI", "Docker", "scikit-learn", "Applied Machine Learning", "Flutter", "Kotlin"]
+    "knowsAbout": ["Python", "FastAPI", "Docker", "scikit-learn", "Applied Machine Learning", "Flutter", "Kotlin", "JavaScript", "Chrome Extensions"]
   }
   </script>
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Active nav link on scroll
     const sections = ['home','apps','projects','resume','contact'];
-    const links = sections.map(id=>({id, el: document.querySelector(`a.nav-link[href="#${id}"]`)}));
-    const obs = new IntersectionObserver(entries=>{
-      entries.forEach(e=>{
-        const link = links.find(l=>`#${l.id}`===`#${e.target.id}`);
-        if(link && e.isIntersecting){
-          document.querySelectorAll('.nav-link').forEach(a=>a.classList.remove('active'));
+    const links = sections.map(id => ({ id, el: document.querySelector(`a.nav-link[href="#${id}"]`) }));
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        const link = links.find(l => l.id === e.target.id);
+        if (link && e.isIntersecting) {
+          document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
           link.el?.classList.add('active');
         }
-      })
-    }, {root:null, threshold:.6});
-    sections.forEach(id=>{const s=document.getElementById(id); if(s) obs.observe(s)});
+      });
+    }, { root: null, threshold: .6 });
+    sections.forEach(id => { const s = document.getElementById(id); if (s) obs.observe(s); });
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
