@@ -1,298 +1,518 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Amir Sotoudehnia Korani — Portfolio</title>
-
   <meta name="description" content="Portfolio of Amir Sotoudehnia Korani — Software Engineer (Python/Backend) with applied AI/ML projects, apps, and contact links." />
-
-  <!-- Open Graph -->
   <meta property="og:title" content="Amir Sotoudehnia Korani — Portfolio" />
   <meta property="og:description" content="Software Engineer (Python/Backend) with applied AI/ML projects, published apps, and contact links." />
   <meta property="og:url" content="https://amirsotoudehnia.github.io/" />
   <meta property="og:type" content="website" />
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
 
   <style>
-    :root{
-      --brand:#5b7cfa;
-      --accent:#00d4ff;
-      --bg:#f6f9fc;
-      --text:#0f172a;
-      --muted:#475569;
-      --card:#ffffff;
-      --border:rgba(15,23,42,.08);
-    }
+  /* ═══════════════════════════════════════════════════
+     TOKENS
+  ═══════════════════════════════════════════════════ */
+  :root {
+    --c-bg:       #07070f;
+    --c-surface:  rgba(255,255,255,.035);
+    --c-border:   rgba(255,255,255,.08);
+    --c-text:     #e2e8f0;
+    --c-muted:    #64748b;
+    --c-heading:  #f1f5f9;
+    --grad:       linear-gradient(135deg, #7c3aed, #2563eb, #0ea5e9);
+    --grad-text:  linear-gradient(90deg, #a78bfa, #60a5fa, #38bdf8);
+    --radius:     16px;
+    --blur:       blur(20px);
+    --transition: .25s ease;
+  }
+  [data-theme="light"] {
+    --c-bg:      #f0f4ff;
+    --c-surface: rgba(255,255,255,.7);
+    --c-border:  rgba(15,23,42,.08);
+    --c-text:    #0f172a;
+    --c-muted:   #475569;
+    --c-heading: #0f172a;
+  }
 
-    html{scroll-behavior:smooth}
-    body{ color:var(--text); background:var(--bg); }
+  /* ═══════════════════════════════════════════════════
+     BASE
+  ═══════════════════════════════════════════════════ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html  { scroll-behavior: smooth; }
+  body  {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--c-bg);
+    color: var(--c-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background var(--transition), color var(--transition);
+  }
 
-    /* ── Navbar ── */
-    .navbar{
-      --bs-navbar-color:#0b1220;
-      --bs-navbar-brand-color:#2563eb;
-      --bs-navbar-hover-color:var(--brand);
-      transition: background .25s ease, box-shadow .25s ease;
-    }
-    .navbar.scrolled{
-      background: rgba(246,249,252,.92) !important;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 1px 12px rgba(15,23,42,.08);
-    }
-    .navbar .nav-link.active{ color:var(--brand)!important; }
-    .navbar-toggler{ border-color: rgba(15,23,42,.2); }
-    .navbar-toggler-icon{ filter: invert(0.2); }
+  /* dot-grid background */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  [data-theme="light"] body::before {
+    background-image: radial-gradient(rgba(15,23,42,.07) 1px, transparent 1px);
+  }
 
-    /* ── Hero ── */
-    .hero{
-      background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(91,124,250,.20), transparent 60%),
-        radial-gradient(1200px 600px at 110% 10%, rgba(0,212,255,.15), transparent 60%),
-        var(--bg);
-      padding:8rem 0 6rem;
-    }
+  /* subtle colour glow top */
+  body::after {
+    content: '';
+    position: fixed; top: -200px; left: 50%; transform: translateX(-50%);
+    width: 900px; height: 500px; z-index: 0; pointer-events: none;
+    background: radial-gradient(ellipse, rgba(124,58,237,.18) 0%, transparent 70%);
+  }
 
-    .badge-soft{
-      background: rgba(91,124,250,.10);
-      border: 1px solid rgba(91,124,250,.20);
-      color: #1e3a8a;
-    }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+  section, header { position: relative; z-index: 1; }
 
-    /* ── Cards ── */
-    .section{padding:5rem 0}
-    .card{ background:var(--card); border:1px solid var(--border); }
-    .card:hover{transform:translateY(-4px); transition:transform .2s ease}
-    .shadow-soft{ box-shadow:0 8px 24px rgba(2,6,23,.08); }
+  /* ═══════════════════════════════════════════════════
+     NAVBAR
+  ═══════════════════════════════════════════════════ */
+  .navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 16px 0;
+    transition: background var(--transition), box-shadow var(--transition), padding var(--transition);
+  }
+  .navbar.scrolled {
+    padding: 10px 0;
+    background: rgba(7,7,15,.75);
+    backdrop-filter: var(--blur);
+    box-shadow: 0 1px 0 var(--c-border);
+  }
+  [data-theme="light"] .navbar.scrolled {
+    background: rgba(240,244,255,.82);
+  }
+  .navbar-inner {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-weight: 800; font-size: 1.1rem; letter-spacing: -.3px;
+    background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 8px; align-items: center; }
+  .nav-links a {
+    padding: 6px 14px; border-radius: 999px; font-size: .875rem; font-weight: 500;
+    color: var(--c-muted); text-decoration: none;
+    transition: color var(--transition), background var(--transition);
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--c-heading);
+    background: var(--c-surface);
+  }
+  /* theme toggle */
+  .theme-btn {
+    width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--c-border);
+    background: var(--c-surface); backdrop-filter: var(--blur);
+    color: var(--c-muted); cursor: pointer; display: grid; place-items: center;
+    font-size: 1rem; transition: color var(--transition), border-color var(--transition);
+    margin-left: 4px;
+  }
+  .theme-btn:hover { color: var(--c-heading); border-color: rgba(255,255,255,.2); }
 
-    .text-gradient{
-      background: linear-gradient(90deg, var(--brand), var(--accent));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-    }
+  /* mobile nav */
+  .nav-toggle { display: none; background: none; border: 1px solid var(--c-border); color: var(--c-text); border-radius: 8px; padding: 6px 10px; cursor: pointer; font-size: 1rem; }
+  @media(max-width:640px){
+    .nav-toggle { display: block; }
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 16px; right: 16px; background: rgba(7,7,15,.95); backdrop-filter: var(--blur); border: 1px solid var(--c-border); border-radius: var(--radius); padding: 12px; gap: 4px; }
+    .nav-links.open { display: flex; }
+    .nav-links a { width: 100%; text-align: center; }
+  }
 
-    .avatar{
-      width:112px; height:112px; border-radius:50%;
-      border:3px solid rgba(255,255,255,.3);
-      object-fit:cover;
-      background:#fff;
-    }
+  /* ═══════════════════════════════════════════════════
+     GLASS CARD
+  ═══════════════════════════════════════════════════ */
+  .card {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    backdrop-filter: var(--blur);
+    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(124,58,237,.35);
+    box-shadow: 0 20px 40px rgba(0,0,0,.3), 0 0 0 1px rgba(124,58,237,.1);
+  }
+  .card-featured {
+    border-color: rgba(124,58,237,.25);
+    box-shadow: 0 0 0 1px rgba(124,58,237,.08), inset 0 1px 0 rgba(255,255,255,.05);
+  }
 
-    a.link-fancy{ color:var(--brand); text-decoration:none; }
-    a.link-fancy:hover{ color:#1e3a8a; text-decoration:underline; }
+  /* ═══════════════════════════════════════════════════
+     HERO
+  ═══════════════════════════════════════════════════ */
+  .hero { padding: 140px 0 90px; }
 
-    footer{border-top:1px solid var(--border)}
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 48px; align-items: center;
+  }
+  @media(max-width:768px){ .hero-grid { grid-template-columns: 1fr; } .hero-kpis { display: none; } }
 
-    .btn-brand{
-      --bs-btn-bg:var(--brand);
-      --bs-btn-border-color:var(--brand);
-      --bs-btn-hover-bg:#4a6cf7;
-      --bs-btn-hover-border-color:#4a6cf7;
-      --bs-btn-color:#fff;
-      --bs-btn-hover-color:#fff;
-    }
+  /* avatar */
+  .avatar-wrap {
+    display: inline-block; position: relative; margin-bottom: 28px;
+  }
+  .avatar-ring {
+    width: 88px; height: 88px; border-radius: 50%;
+    padding: 3px;
+    background: var(--grad);
+    animation: spin-ring 6s linear infinite;
+  }
+  @keyframes spin-ring {
+    0%   { background: linear-gradient(0deg,   #7c3aed, #2563eb, #0ea5e9); }
+    50%  { background: linear-gradient(180deg, #7c3aed, #2563eb, #0ea5e9); }
+    100% { background: linear-gradient(360deg, #7c3aed, #2563eb, #0ea5e9); }
+  }
+  .avatar-ring img {
+    width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+    display: block; background: #1e1e2e;
+  }
+  .status-dot {
+    position: absolute; bottom: 4px; right: 4px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: #22c55e; border: 2px solid var(--c-bg);
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,.5); }
+    50%      { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+  }
 
-    .btn-outline-light{
-      --bs-btn-color:var(--brand);
-      --bs-btn-border-color:var(--brand);
-      --bs-btn-hover-bg:var(--brand);
-      --bs-btn-hover-border-color:var(--brand);
-      --bs-btn-hover-color:#fff;
-    }
+  .location-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 12px; border-radius: 999px; font-size: .78rem; font-weight: 500;
+    background: rgba(124,58,237,.12); border: 1px solid rgba(124,58,237,.25);
+    color: #a78bfa; margin-bottom: 14px;
+  }
 
-    .small.text-secondary{ color:var(--muted)!important; }
+  h1.hero-name {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800; line-height: 1.1; letter-spacing: -.5px;
+    background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin-bottom: 8px;
+  }
 
-    .tag{
-      display:inline-block; padding:.4rem .65rem; border-radius:999px;
-      font-size:.9rem; font-weight:600; margin:.15rem;
-      background: rgba(91,124,250,.10);
-      border: 1px solid rgba(91,124,250,.25);
-      color: #0b1220;
-    }
+  .hero-subtitle {
+    font-size: 1.1rem; color: var(--c-muted); margin-bottom: 24px; min-height: 1.7em;
+  }
+  .typed-cursor {
+    display: inline-block; width: 2px; height: 1em; background: #7c3aed;
+    margin-left: 2px; vertical-align: text-bottom; animation: blink .7s infinite;
+  }
+  @keyframes blink { 0%,100% { opacity:1 } 50% { opacity:0 } }
 
-    /* ── KPI cards ── */
-    .kpis .card{ min-height:110px; }
-    .kpi-number{ font-size:2rem; font-weight:800; line-height:1; color:var(--brand); }
-    .kpi-label{ font-size:.78rem; color:var(--muted); margin-top:.35rem; }
+  /* skill tags */
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 28px; }
+  .tag {
+    padding: 4px 12px; border-radius: 999px; font-size: .8rem; font-weight: 600;
+    border: 1px solid; transition: transform .15s;
+  }
+  .tag:hover { transform: translateY(-2px); }
+  .tag-purple { background: rgba(124,58,237,.12); border-color: rgba(124,58,237,.3); color: #c4b5fd; }
+  .tag-blue   { background: rgba(37,99,235,.12);  border-color: rgba(37,99,235,.3);  color: #93c5fd; }
+  .tag-cyan   { background: rgba(14,165,233,.12); border-color: rgba(14,165,233,.3); color: #7dd3fc; }
+  .tag-green  { background: rgba(34,197,94,.10);  border-color: rgba(34,197,94,.25); color: #86efac; }
+  .tag-orange { background: rgba(249,115,22,.10); border-color: rgba(249,115,22,.25);color: #fdba74; }
 
-    .app-badge{height:40px}
-    .icon-32{font-size:1.25rem}
+  /* CTA buttons */
+  .btn-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 10px 20px; border-radius: 10px; font-size: .875rem; font-weight: 600;
+    text-decoration: none; cursor: pointer; border: 1px solid transparent;
+    transition: transform .15s, box-shadow .15s, background .15s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary {
+    background: var(--grad); color: #fff;
+    box-shadow: 0 4px 20px rgba(124,58,237,.35);
+  }
+  .btn-primary:hover { box-shadow: 0 6px 28px rgba(124,58,237,.55); }
+  .btn-ghost {
+    background: var(--c-surface); border-color: var(--c-border); color: var(--c-text);
+    backdrop-filter: var(--blur);
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,.2); }
 
-    @media (max-width: 576px){ .hero{padding:6rem 0 4rem} }
+  /* KPI cards */
+  .hero-kpis { display: flex; flex-direction: column; gap: 12px; min-width: 180px; }
+  .kpi-card {
+    padding: 18px 22px; border-radius: var(--radius);
+    background: var(--c-surface); border: 1px solid var(--c-border);
+    backdrop-filter: var(--blur); text-align: center;
+  }
+  .kpi-num  { font-size: 2rem; font-weight: 800; background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .kpi-lbl  { font-size: .75rem; color: var(--c-muted); margin-top: 2px; }
+
+  /* ═══════════════════════════════════════════════════
+     SECTIONS
+  ═══════════════════════════════════════════════════ */
+  section { padding: 80px 0; }
+  .section-label {
+    font-size: .75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    color: #7c3aed; margin-bottom: 8px;
+  }
+  .section-title { font-size: clamp(1.5rem,3vw,2rem); font-weight: 800; color: var(--c-heading); margin-bottom: 40px; letter-spacing: -.3px; }
+  .section-divider {
+    height: 1px; margin: 0;
+    background: linear-gradient(90deg, transparent, rgba(124,58,237,.4), transparent);
+  }
+
+  /* ═══════════════════════════════════════════════════
+     APPS / PROJECTS GRID
+  ═══════════════════════════════════════════════════ */
+  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+  @media(max-width:900px){ .grid-3 { grid-template-columns: repeat(2,1fr); } }
+  @media(max-width:580px){ .grid-3, .grid-2 { grid-template-columns: 1fr; } }
+
+  .app-card { padding: 24px; display: flex; flex-direction: column; gap: 10px; height: 100%; }
+  .app-card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .app-card h3 { font-size: 1rem; font-weight: 700; color: var(--c-heading); }
+  .app-card p  { font-size: .875rem; color: var(--c-muted); line-height: 1.6; flex: 1; }
+  .app-card-stack { font-size: .75rem; color: #4b5563; margin-top: auto; }
+  .app-card-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    font-size: .72rem; font-weight: 700; letter-spacing: .3px;
+  }
+  .badge-purple { background: rgba(124,58,237,.18); color: #c4b5fd; }
+  .badge-green  { background: rgba(34,197,94,.15);  color: #86efac; }
+  .badge-blue   { background: rgba(37,99,235,.15);  color: #93c5fd; }
+  .badge-amber  { background: rgba(245,158,11,.15); color: #fcd34d; }
+  .badge-gray   { background: rgba(100,116,139,.15);color: #94a3b8; }
+  .badge-coming { background: rgba(14,165,233,.12); color: #7dd3fc; }
+
+  .link-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 12px; border-radius: 8px; font-size: .78rem; font-weight: 600;
+    border: 1px solid var(--c-border); color: var(--c-muted); text-decoration: none;
+    background: var(--c-surface); backdrop-filter: var(--blur);
+    transition: border-color .15s, color .15s, transform .15s;
+  }
+  .link-btn:hover { border-color: rgba(124,58,237,.4); color: #a78bfa; transform: translateY(-1px); }
+
+  .app-badge-img { height: 36px; transition: transform .15s; }
+  .app-badge-img:hover { transform: translateY(-2px); }
+
+  /* project card accent bar */
+  .proj-card { padding: 24px; position: relative; overflow: hidden; }
+  .proj-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--grad); opacity: 0; transition: opacity .25s;
+  }
+  .proj-card:hover::before { opacity: 1; }
+
+  /* ═══════════════════════════════════════════════════
+     RESUME / TIMELINE
+  ═══════════════════════════════════════════════════ */
+  .resume-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 24px; }
+  @media(max-width:768px){ .resume-grid { grid-template-columns: 1fr; } }
+
+  .resume-card { padding: 28px; }
+  .timeline { list-style: none; position: relative; padding-left: 22px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 1px;
+    background: linear-gradient(to bottom, #7c3aed, transparent);
+  }
+  .timeline li { position: relative; margin-bottom: 22px; }
+  .timeline li::before {
+    content: ''; position: absolute; left: -18px; top: 6px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--grad); box-shadow: 0 0 0 3px rgba(124,58,237,.2);
+  }
+  .timeline-year { font-size: .72rem; font-weight: 700; color: #7c3aed; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 2px; }
+  .timeline-desc { font-size: .9rem; color: var(--c-text); line-height: 1.5; }
+  .timeline-desc em { color: var(--c-muted); font-style: normal; font-size: .82rem; }
+
+  /* ═══════════════════════════════════════════════════
+     CONTACT
+  ═══════════════════════════════════════════════════ */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  @media(max-width:640px){ .contact-grid { grid-template-columns: 1fr; } }
+  .contact-info-card { padding: 28px; display: flex; flex-direction: column; gap: 16px; }
+  .contact-row { display: flex; align-items: center; gap: 12px; font-size: .9rem; }
+  .contact-row i { color: #7c3aed; font-size: 1.1rem; flex-shrink: 0; }
+  .contact-row a { color: var(--c-text); text-decoration: none; transition: color .15s; }
+  .contact-row a:hover { color: #a78bfa; }
+
+  /* ═══════════════════════════════════════════════════
+     FOOTER
+  ═══════════════════════════════════════════════════ */
+  footer {
+    padding: 32px 0; text-align: center; font-size: .85rem; color: var(--c-muted);
+    border-top: 1px solid var(--c-border);
+  }
+  footer a { color: var(--c-muted); text-decoration: none; transition: color .15s; }
+  footer a:hover { color: #a78bfa; }
+
+  /* ═══════════════════════════════════════════════════
+     SCROLL ANIMATIONS
+  ═══════════════════════════════════════════════════ */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
   </style>
 </head>
 
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg fixed-top bg-transparent" id="navbar">
+
+  <!-- ══ NAVBAR ══════════════════════════════════════ -->
+  <nav class="navbar" id="navbar">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="#home">Amir</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="nav">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="#apps">Apps</a></li>
-          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-          <li class="nav-item"><a class="nav-link" href="#resume">Resume</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-        </ul>
+      <div class="navbar-inner">
+        <a class="nav-logo" href="#home">Amir.</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu"><i class="bi bi-list"></i></button>
+        <div class="nav-links" id="navLinks">
+          <a href="#apps">Apps</a>
+          <a href="#projects">Projects</a>
+          <a href="#resume">Resume</a>
+          <a href="#contact">Contact</a>
+          <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+            <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- ══ HERO ════════════════════════════════════════ -->
   <header id="home" class="hero">
     <div class="container">
-      <div class="row align-items-center g-4">
-        <div class="col-lg-8">
-          <div class="d-flex align-items-center gap-3 mb-3">
-            <img
-              src="Amir.jpeg"
-              alt="Amir Sotoudehnia Korani"
-              class="avatar"
-              onerror="this.onerror=null;this.src='https://avatars.githubusercontent.com/u/104729197?v=4';"
-            />
-            <div>
-              <div class="badge badge-soft">Based in Växjö, Sweden</div>
-              <h1 class="display-5 fw-bold mt-2 text-gradient">Amir Sotoudehnia Korani</h1>
-              <p class="lead mb-0">
-                Software Engineer — Python/Backend &amp; Mobile — building apps and applied AI/ML systems.
-              </p>
+      <div class="hero-grid">
+        <div>
+          <div class="avatar-wrap">
+            <div class="avatar-ring">
+              <img src="Amir.jpeg" alt="Amir Sotoudehnia Korani"
+                   onerror="this.onerror=null;this.src='https://avatars.githubusercontent.com/u/104729197?v=4';" />
             </div>
+            <div class="status-dot" title="Available for work"></div>
           </div>
 
-          <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
-            <span class="tag">Python</span>
-            <span class="tag">FastAPI</span>
-            <span class="tag">Docker</span>
-            <span class="tag">Applied ML</span>
-            <span class="tag">Flutter</span>
-            <span class="tag">Kotlin</span>
-            <span class="tag">Chrome Extensions</span>
+          <div class="location-badge">
+            <i class="bi bi-geo-alt-fill"></i> Växjö, Sweden
           </div>
 
-          <div class="mt-4 d-flex gap-2 flex-wrap">
-            <a class="btn btn-brand" href="#projects"><i class="bi bi-cpu-fill me-1"></i> AI / ML Projects</a>
-            <a class="btn btn-outline-light" href="#apps"><i class="bi bi-grid-3x3-gap-fill me-1"></i> Apps</a>
-            <a class="btn btn-outline-light" href="#resume"><i class="bi bi-file-earmark-text me-1"></i> Resume</a>
-            <a class="btn btn-outline-light" target="_blank" href="https://github.com/AmirSotoudehnia" rel="noopener"><i class="bi bi-github me-1"></i> GitHub</a>
-          </div>
-        </div>
+          <h1 class="hero-name">Amir Sotoudehnia Korani</h1>
 
-        <div class="col-lg-4">
-          <div class="kpis row g-3">
-            <div class="col-6">
-              <div class="card shadow-soft text-center p-3">
-                <div class="kpi-number">5+</div>
-                <div class="kpi-label">Years of Experience</div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="card shadow-soft text-center p-3">
-                <div class="kpi-number">4+</div>
-                <div class="kpi-label">Shipped Apps &amp; Extensions</div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="card shadow-soft text-center p-3">
-                <div class="kpi-number" style="font-size:1.4rem">End-to-End</div>
-                <div class="kpi-label">Data → Model → API → Production</div>
-              </div>
-            </div>
+          <p class="hero-subtitle">
+            <span id="typed"></span><span class="typed-cursor"></span>
+          </p>
+
+          <div class="tags">
+            <span class="tag tag-purple">Python</span>
+            <span class="tag tag-purple">FastAPI</span>
+            <span class="tag tag-blue">Docker</span>
+            <span class="tag tag-blue">scikit-learn</span>
+            <span class="tag tag-cyan">Flutter</span>
+            <span class="tag tag-cyan">Kotlin</span>
+            <span class="tag tag-green">Applied ML</span>
+            <span class="tag tag-orange">Chrome Extensions</span>
+          </div>
+
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#projects"><i class="bi bi-cpu-fill"></i> AI / ML Projects</a>
+            <a class="btn btn-ghost" href="#apps"><i class="bi bi-grid-3x3-gap-fill"></i> Apps</a>
+            <a class="btn btn-ghost" href="Sotoudehnia Korani_Amir_CV.pdf" target="_blank" rel="noopener"><i class="bi bi-file-earmark-text"></i> CV</a>
+            <a class="btn btn-ghost" href="https://github.com/AmirSotoudehnia" target="_blank" rel="noopener"><i class="bi bi-github"></i> GitHub</a>
           </div>
         </div>
 
+        <div class="hero-kpis">
+          <div class="kpi-card">
+            <div class="kpi-num">5+</div>
+            <div class="kpi-lbl">Years Experience</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-num">4+</div>
+            <div class="kpi-lbl">Shipped Apps</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-num" style="font-size:1.3rem;line-height:1.2">E2E</div>
+            <div class="kpi-lbl">Data → Model → API</div>
+          </div>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- APPS -->
-  <section id="apps" class="section">
+  <hr class="section-divider" />
+
+  <!-- ══ APPS ════════════════════════════════════════ -->
+  <section id="apps">
     <div class="container">
-      <div class="d-flex justify-content-between align-items-end mb-4">
-        <h2 class="fw-bold m-0">Featured Apps &amp; Extensions</h2>
-        <a class="link-fancy" href="#projects">View AI/ML projects →</a>
-      </div>
+      <div class="reveal"><p class="section-label">Shipped Products</p></div>
+      <h2 class="section-title reveal reveal-delay-1">Featured Apps &amp; Extensions</h2>
 
-      <div class="row g-4">
+      <div class="grid-3">
 
-        <!-- TiLECAT -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <div class="d-flex justify-content-between align-items-start">
-                <h5 class="card-title">TiLECAT</h5>
-                <span class="badge bg-primary">Game</span>
-              </div>
-              <p class="card-text">
-                A playful, cat-friendly game with big tiles and particle effects. Built with Flutter/Flame.
-              </p>
-              <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                <a class="btn btn-sm btn-outline-light" href="https://cafebazaar.ir/app/com.tilecat.app" target="_blank" rel="noopener">Café Bazaar</a>
-              </div>
-            </div>
+        <div class="card app-card card-featured reveal reveal-delay-1">
+          <div class="app-card-top">
+            <h3>TiLECAT</h3>
+            <span class="badge badge-blue">Game</span>
+          </div>
+          <p>A playful, cat-friendly game with big tiles and particle effects. Built with Flutter/Flame.</p>
+          <div class="app-card-stack">Flutter · Flame Engine</div>
+          <div class="app-card-links">
+            <a class="link-btn" href="https://cafebazaar.ir/app/com.tilecat.app" target="_blank" rel="noopener"><i class="bi bi-shop"></i> Café Bazaar</a>
           </div>
         </div>
 
-        <!-- SnabbLearn -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <div class="d-flex justify-content-between align-items-start">
-                <h5 class="card-title">SnabbLearn</h5>
-                <span class="badge bg-success">Productivity</span>
-              </div>
-              <p class="card-text">
-                Leitner-based flashcards with daily review, quiz mode, categories, and notifications. Flutter + Hive.
-              </p>
-              <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                <a href="https://apps.apple.com/app/id6751161211" target="_blank" rel="noopener">
-                  <img class="app-badge" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" />
-                </a>
-                <a class="btn btn-sm btn-outline-light" href="https://cafebazaar.ir/app/com.amirsotoudehnia.learnon" target="_blank" rel="noopener">Café Bazaar</a>
-              </div>
-            </div>
+        <div class="card app-card reveal reveal-delay-2">
+          <div class="app-card-top">
+            <h3>SnabbLearn</h3>
+            <span class="badge badge-green">Productivity</span>
+          </div>
+          <p>Leitner-based flashcards with daily review, quiz mode, categories, and push notifications.</p>
+          <div class="app-card-stack">Flutter · Hive · Local Notifications</div>
+          <div class="app-card-links">
+            <a href="https://apps.apple.com/app/id6751161211" target="_blank" rel="noopener">
+              <img class="app-badge-img" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" />
+            </a>
+            <a class="link-btn" href="https://cafebazaar.ir/app/com.amirsotoudehnia.learnon" target="_blank" rel="noopener"><i class="bi bi-shop"></i> Café Bazaar</a>
           </div>
         </div>
 
-        <!-- MindTick -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <div class="d-flex justify-content-between align-items-start">
-                <h5 class="card-title">MindTick</h5>
-                <span class="badge bg-warning text-dark">Utilities</span>
-              </div>
-              <p class="card-text">
-                Reminder app with alarms, voice/notification features. Kotlin (Android) &amp; Flutter variants.
-              </p>
-              <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                <span class="badge bg-info text-dark">Coming soon</span>
-              </div>
-            </div>
+        <div class="card app-card reveal reveal-delay-3">
+          <div class="app-card-top">
+            <h3>MindTick</h3>
+            <span class="badge badge-amber">Utilities</span>
+          </div>
+          <p>Reminder app with smart alarms, voice and notification features.</p>
+          <div class="app-card-stack">Kotlin (Android) · Flutter</div>
+          <div class="app-card-links">
+            <span class="badge badge-coming">Coming soon</span>
           </div>
         </div>
 
-        <!-- Daily Spark -->
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <div class="d-flex justify-content-between align-items-start">
-                <h5 class="card-title">Daily Spark</h5>
-                <span class="badge bg-secondary">Chrome Extension</span>
-              </div>
-              <p class="card-text">
-                A Chrome extension that shows a daily motivational quote, live weather (Open-Meteo), and top Hacker News headlines — no API key needed.
-              </p>
-              <div class="small text-secondary mb-3">Stack: Vanilla JS, Manifest V3, Open-Meteo API, HN API</div>
-              <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                <a class="btn btn-sm btn-outline-light" href="https://github.com/AmirSotoudehnia/daily-spark-english" target="_blank" rel="noopener">
-                  <i class="bi bi-github me-1"></i> GitHub
-                </a>
-              </div>
-            </div>
+        <div class="card app-card reveal reveal-delay-1">
+          <div class="app-card-top">
+            <h3>Daily Spark</h3>
+            <span class="badge badge-gray">Chrome Extension</span>
+          </div>
+          <p>Daily motivational quote + live weather (Open-Meteo) + top Hacker News headlines. No API key needed.</p>
+          <div class="app-card-stack">Vanilla JS · Manifest V3 · Open-Meteo · HN API</div>
+          <div class="app-card-links">
+            <a class="link-btn" href="https://github.com/AmirSotoudehnia/daily-spark-english" target="_blank" rel="noopener"><i class="bi bi-github"></i> GitHub</a>
           </div>
         </div>
 
@@ -300,224 +520,245 @@
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section id="projects" class="section">
+  <hr class="section-divider" />
+
+  <!-- ══ PROJECTS ════════════════════════════════════ -->
+  <section id="projects">
     <div class="container">
-      <h2 class="fw-bold mb-4">AI / ML &amp; Engineering Projects</h2>
+      <div class="reveal"><p class="section-label">Engineering Work</p></div>
+      <h2 class="section-title reveal reveal-delay-1">AI / ML &amp; Projects</h2>
 
-      <div class="row g-4">
+      <div class="grid-2">
 
-        <!-- Ticket Classifier -->
-        <div class="col-lg-6">
-          <div class="card h-100 shadow-soft">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-start">
-                <h5 class="mb-1">Support Ticket Classifier (Production-style)</h5>
-                <span class="badge bg-info text-dark">AI/ML</span>
-              </div>
-              <p class="mb-2">
-                End-to-end ML pipeline: data loading, preprocessing, training &amp; evaluation, and deployment as a FastAPI inference service.
-              </p>
-              <div class="small text-secondary mb-3">
-                Stack: Python, scikit-learn, FastAPI, Docker, CI (GitHub Actions)
-              </div>
-              <div class="d-flex gap-2 flex-wrap">
-                <a class="btn btn-sm btn-brand" target="_blank" rel="noopener" href="https://github.com/AmirSotoudehnia/ticket-classifier">
-                  <i class="bi bi-github me-1"></i> GitHub Repo
-                </a>
-                <a class="btn btn-sm btn-outline-light" href="#resume">
-                  <i class="bi bi-file-earmark-text me-1"></i> Mentioned in CV
-                </a>
-              </div>
-            </div>
+        <div class="card proj-card card-featured reveal reveal-delay-1">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+            <h3 style="font-size:1rem;font-weight:700;color:var(--c-heading)">Support Ticket Classifier</h3>
+            <span class="badge badge-blue">AI / ML</span>
           </div>
-        </div>
-
-        <!-- Automation & Scraping -->
-        <div class="col-lg-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5>Automation &amp; Scraping (R&amp;D)</h5>
-              <p>
-                Supplier comparison tool using Playwright + OCR + search; extracts product data and drafts emails for orders.
-              </p>
-              <div class="small text-secondary">Stack: Python, Flask, Playwright, OCR.</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Ads & IAP -->
-        <div class="col-lg-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5>Ad &amp; IAP Integrations</h5>
-              <p>
-                Implemented AdMob + consent flows, in-app purchases/subscriptions, and store policy compliance.
-              </p>
-              <div class="small text-secondary">Stack: Flutter, StoreKit, Play Billing.</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Backend APIs -->
-        <div class="col-lg-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5>Backend APIs</h5>
-              <p>
-                Built REST APIs and backend logic for apps and automation workflows, focusing on clean architecture and maintainability.
-              </p>
-              <div class="small text-secondary">Stack: Python, FastAPI/Flask, SQL.</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- RESUME -->
-  <section id="resume" class="section">
-    <div class="container">
-      <div class="row g-4 align-items-start">
-        <div class="col-lg-5">
-          <div class="card p-4 h-100">
-            <h3 class="fw-bold mb-3">About</h3>
-            <p>
-              Software Engineer with hands-on experience building and shipping web/mobile products and applied AI/ML systems.
-              Comfortable delivering end-to-end solutions: data → model → API → deployment.
-            </p>
-
-            <div class="mb-3">
-              <div class="fw-semibold mb-1">Core Skills</div>
-              <div>
-                <span class="tag">Python</span>
-                <span class="tag">FastAPI</span>
-                <span class="tag">Docker</span>
-                <span class="tag">scikit-learn</span>
-                <span class="tag">Flutter</span>
-                <span class="tag">Kotlin</span>
-                <span class="tag">JavaScript</span>
-                <span class="tag">Chrome Extensions</span>
-              </div>
-            </div>
-
-            <div class="d-flex gap-2 flex-wrap">
-              <a class="btn btn-outline-light" href="Sotoudehnia Korani_Amir_CV.pdf" target="_blank" rel="noopener">
-                <i class="bi bi-download me-1"></i> Download CV
-              </a>
-              <a class="btn btn-outline-light" href="mailto:amir.sotoudehnia@gmail.com">
-                <i class="bi bi-envelope me-1"></i> Email me
-              </a>
-              <a class="btn btn-outline-light" href="https://github.com/AmirSotoudehnia" target="_blank" rel="noopener">
-                <i class="bi bi-github me-1"></i> GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-7">
-          <div class="card p-4 h-100">
-            <h3 class="fw-bold mb-3">Quick Timeline</h3>
-            <ul class="mb-0">
-              <li class="mb-2"><strong>2026:</strong> M.Sc. (Linnaeus University) — Social Media &amp; Web Technologies</li>
-              <li class="mb-2"><strong>2023–Now:</strong> Built and shipped apps, Chrome extensions, and backend/automation projects</li>
-              <li class="mb-2"><strong>2013–2018:</strong> IT lifecycle management + Python automation (Tehran)</li>
-            </ul>
-            <div class="small text-secondary mt-3">
-              Full details available in the CV PDF.
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="section">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-lg-7">
-          <h2 class="fw-bold">Contact</h2>
-          <p>
-            Interested in collaborating or hiring? Send me an email — I'm available in Växjö and open to hybrid/remote opportunities.
+          <p style="font-size:.875rem;color:var(--c-muted);line-height:1.6;margin-bottom:12px">
+            End-to-end ML pipeline: data loading, preprocessing, training & evaluation, deployed as a FastAPI inference service with Docker + CI.
           </p>
-          <div class="d-flex gap-3 align-items-center flex-wrap">
-            <a class="btn btn-brand" href="mailto:amir.sotoudehnia@gmail.com"><i class="bi bi-send me-1"></i> Email</a>
-            <a class="link-fancy" href="https://github.com/AmirSotoudehnia" target="_blank" rel="noopener"><i class="bi bi-github me-1"></i> GitHub</a>
-            <a class="link-fancy" href="https://amirsotoudehnia.github.io/" target="_blank" rel="noopener"><i class="bi bi-link-45deg me-1"></i> Website</a>
+          <p style="font-size:.75rem;color:#4b5563;margin-bottom:16px">Python · scikit-learn · FastAPI · Docker · GitHub Actions</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <a class="link-btn" href="https://github.com/AmirSotoudehnia/ticket-classifier" target="_blank" rel="noopener"><i class="bi bi-github"></i> GitHub</a>
+            <a class="link-btn" href="#resume"><i class="bi bi-file-earmark-text"></i> In CV</a>
           </div>
         </div>
 
-        <div class="col-lg-5">
-          <div class="card p-4">
-            <div class="d-flex align-items-center mb-2"><i class="bi bi-geo-alt icon-32 me-2"></i> Växjö, Sweden</div>
-            <div class="d-flex align-items-center mb-2">
-              <i class="bi bi-envelope icon-32 me-2"></i>
-              <a class="link-fancy" href="mailto:amir.sotoudehnia@gmail.com">amir.sotoudehnia@gmail.com</a>
-            </div>
-            <div class="d-flex align-items-center mb-2">
-              <i class="bi bi-link-45deg icon-32 me-2"></i>
-              <a class="link-fancy" target="_blank" rel="noopener" href="https://amirsotoudehnia.github.io/">amirsotoudehnia.github.io</a>
-            </div>
+        <div class="card proj-card reveal reveal-delay-2">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+            <h3 style="font-size:1rem;font-weight:700;color:var(--c-heading)">Automation &amp; Scraping</h3>
+            <span class="badge badge-purple">R&amp;D</span>
           </div>
+          <p style="font-size:.875rem;color:var(--c-muted);line-height:1.6;margin-bottom:12px">
+            Supplier comparison tool — Playwright + OCR + search, extracts product data and drafts emails for purchase orders.
+          </p>
+          <p style="font-size:.75rem;color:#4b5563">Python · Flask · Playwright · OCR</p>
+        </div>
+
+        <div class="card proj-card reveal reveal-delay-3">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+            <h3 style="font-size:1rem;font-weight:700;color:var(--c-heading)">Ad &amp; IAP Integrations</h3>
+            <span class="badge badge-amber">Mobile</span>
+          </div>
+          <p style="font-size:.875rem;color:var(--c-muted);line-height:1.6;margin-bottom:12px">
+            AdMob + GDPR consent flows, in-app purchases, subscriptions, and app store policy compliance across iOS &amp; Android.
+          </p>
+          <p style="font-size:.75rem;color:#4b5563">Flutter · StoreKit · Play Billing</p>
+        </div>
+
+        <div class="card proj-card reveal reveal-delay-1">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+            <h3 style="font-size:1rem;font-weight:700;color:var(--c-heading)">Backend APIs</h3>
+            <span class="badge badge-green">Backend</span>
+          </div>
+          <p style="font-size:.875rem;color:var(--c-muted);line-height:1.6;margin-bottom:12px">
+            REST APIs and backend logic for apps and automation workflows — clean architecture, proper error handling, documented endpoints.
+          </p>
+          <p style="font-size:.75rem;color:#4b5563">Python · FastAPI / Flask · SQL</p>
         </div>
 
       </div>
     </div>
   </section>
 
-  <footer class="py-4">
-    <div class="container d-flex flex-wrap justify-content-between align-items-center">
-      <div class="small text-secondary">© <span id="y"></span> Amir Sotoudehnia Korani</div>
-      <div class="d-flex gap-3">
-        <a class="link-fancy" href="#home">Back to top ↑</a>
+  <hr class="section-divider" />
+
+  <!-- ══ RESUME ════════════════════════════════════── -->
+  <section id="resume">
+    <div class="container">
+      <div class="reveal"><p class="section-label">Background</p></div>
+      <h2 class="section-title reveal reveal-delay-1">About &amp; Resume</h2>
+
+      <div class="resume-grid">
+        <div class="card resume-card reveal reveal-delay-1">
+          <h3 style="font-size:1.1rem;font-weight:700;color:var(--c-heading);margin-bottom:14px">About</h3>
+          <p style="font-size:.9rem;color:var(--c-muted);line-height:1.7;margin-bottom:20px">
+            Software Engineer with hands-on experience building and shipping web/mobile products and applied AI/ML systems.
+            Comfortable delivering end-to-end solutions: data → model → API → production.
+          </p>
+          <div style="margin-bottom:20px">
+            <p style="font-size:.78rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Core Skills</p>
+            <div class="tags">
+              <span class="tag tag-purple">Python</span>
+              <span class="tag tag-purple">FastAPI</span>
+              <span class="tag tag-blue">Docker</span>
+              <span class="tag tag-blue">scikit-learn</span>
+              <span class="tag tag-cyan">Flutter</span>
+              <span class="tag tag-cyan">Kotlin</span>
+              <span class="tag tag-green">JavaScript</span>
+              <span class="tag tag-orange">Chrome Extensions</span>
+            </div>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="Sotoudehnia Korani_Amir_CV.pdf" target="_blank" rel="noopener"><i class="bi bi-download"></i> Download CV</a>
+            <a class="btn btn-ghost" href="mailto:amir.sotoudehnia@gmail.com"><i class="bi bi-envelope"></i> Email me</a>
+          </div>
+        </div>
+
+        <div class="card resume-card reveal reveal-delay-2">
+          <h3 style="font-size:1.1rem;font-weight:700;color:var(--c-heading);margin-bottom:20px">Timeline</h3>
+          <ul class="timeline">
+            <li>
+              <div class="timeline-year">2026</div>
+              <div class="timeline-desc">M.Sc. — Linnaeus University<br><em>Social Media &amp; Web Technologies, Växjö</em></div>
+            </li>
+            <li>
+              <div class="timeline-year">2023 — Now</div>
+              <div class="timeline-desc">Independent software development<br><em>Mobile apps, Chrome extensions, backend &amp; AI/ML projects</em></div>
+            </li>
+            <li>
+              <div class="timeline-year">2013 — 2018</div>
+              <div class="timeline-desc">IT lifecycle management &amp; Python automation<br><em>Tehran</em></div>
+            </li>
+          </ul>
+          <p style="font-size:.8rem;color:var(--c-muted);margin-top:16px">Full details in the CV PDF.</p>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ══ CONTACT ══════════════════════════════════── -->
+  <section id="contact">
+    <div class="container">
+      <div class="reveal"><p class="section-label">Get in Touch</p></div>
+      <h2 class="section-title reveal reveal-delay-1">Contact</h2>
+
+      <div class="contact-grid">
+        <div class="reveal reveal-delay-1">
+          <p style="font-size:1rem;color:var(--c-muted);line-height:1.7;margin-bottom:28px">
+            Interested in collaborating or hiring? I'm available in Växjö and open to hybrid / remote opportunities.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="mailto:amir.sotoudehnia@gmail.com"><i class="bi bi-send"></i> Send Email</a>
+            <a class="btn btn-ghost" href="https://github.com/AmirSotoudehnia" target="_blank" rel="noopener"><i class="bi bi-github"></i> GitHub</a>
+          </div>
+        </div>
+
+        <div class="card contact-info-card reveal reveal-delay-2">
+          <div class="contact-row"><i class="bi bi-geo-alt-fill"></i> Växjö, Sweden</div>
+          <div class="contact-row"><i class="bi bi-envelope-fill"></i><a href="mailto:amir.sotoudehnia@gmail.com">amir.sotoudehnia@gmail.com</a></div>
+          <div class="contact-row"><i class="bi bi-github"></i><a href="https://github.com/AmirSotoudehnia" target="_blank" rel="noopener">github.com/AmirSotoudehnia</a></div>
+          <div class="contact-row"><i class="bi bi-globe2"></i><a href="https://amirsotoudehnia.github.io/" target="_blank" rel="noopener">amirsotoudehnia.github.io</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══════════════════════════════════── -->
+  <footer>
+    <div class="container">
+      <p>© <span id="yr"></span> Amir Sotoudehnia Korani &nbsp;·&nbsp; <a href="#home">Back to top ↑</a></p>
     </div>
   </footer>
 
   <!-- Schema.org -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Amir Sotoudehnia Korani",
-    "url": "https://amirsotoudehnia.github.io/",
-    "email": "mailto:amir.sotoudehnia@gmail.com",
-    "jobTitle": "Software Engineer",
-    "address": {"@type":"PostalAddress","addressLocality":"Växjö","addressCountry":"SE"},
-    "sameAs": [
-      "https://github.com/AmirSotoudehnia"
-    ],
-    "knowsAbout": ["Python", "FastAPI", "Docker", "scikit-learn", "Applied Machine Learning", "Flutter", "Kotlin", "JavaScript", "Chrome Extensions"]
+    "@context":"https://schema.org","@type":"Person",
+    "name":"Amir Sotoudehnia Korani",
+    "url":"https://amirsotoudehnia.github.io/",
+    "email":"mailto:amir.sotoudehnia@gmail.com",
+    "jobTitle":"Software Engineer",
+    "address":{"@type":"PostalAddress","addressLocality":"Växjö","addressCountry":"SE"},
+    "sameAs":["https://github.com/AmirSotoudehnia"],
+    "knowsAbout":["Python","FastAPI","Docker","scikit-learn","Applied Machine Learning","Flutter","Kotlin","JavaScript","Chrome Extensions"]
   }
   </script>
 
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+  // ── Year ──────────────────────────────────────────
+  document.getElementById('yr').textContent = new Date().getFullYear();
 
-    // Navbar scroll effect
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 20);
+  // ── Theme toggle ──────────────────────────────────
+  const html = document.documentElement;
+  const themeBtn  = document.getElementById('themeBtn');
+  const themeIcon = document.getElementById('themeIcon');
+  const saved = localStorage.getItem('theme') || 'dark';
+  html.setAttribute('data-theme', saved);
+  themeIcon.className = saved === 'dark' ? 'bi bi-moon-stars-fill' : 'bi bi-sun-fill';
+
+  themeBtn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    themeIcon.className = next === 'dark' ? 'bi bi-moon-stars-fill' : 'bi bi-sun-fill';
+  });
+
+  // ── Mobile nav ────────────────────────────────────
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // ── Navbar scroll effect ──────────────────────────
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // ── Active nav link ───────────────────────────────
+  const navAs = document.querySelectorAll('.nav-links a[href^="#"]');
+  const sectionIds = ['home','apps','projects','resume','contact'];
+  const secObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      navAs.forEach(a => a.classList.remove('active'));
+      const match = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (match) match.classList.add('active');
     });
+  }, { threshold: .4 });
+  sectionIds.forEach(id => { const el = document.getElementById(id); if (el) secObs.observe(el); });
 
-    // Active nav link on scroll
-    const sections = ['home','apps','projects','resume','contact'];
-    const links = sections.map(id => ({ id, el: document.querySelector(`a.nav-link[href="#${id}"]`) }));
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        const link = links.find(l => l.id === e.target.id);
-        if (link && e.isIntersecting) {
-          document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
-          link.el?.classList.add('active');
-        }
-      });
-    }, { root: null, threshold: .6 });
-    sections.forEach(id => { const s = document.getElementById(id); if (s) obs.observe(s); });
+  // ── Scroll reveal ─────────────────────────────────
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // ── Typing effect ─────────────────────────────────
+  const lines = [
+    'Software Engineer — Python / Backend',
+    'Mobile Developer — Flutter & Kotlin',
+    'Applied AI / ML Builder',
+    'Open to hybrid & remote roles',
+  ];
+  let li = 0, ci = 0, deleting = false;
+  const typedEl = document.getElementById('typed');
+
+  function tick() {
+    const line = lines[li];
+    if (!deleting) {
+      typedEl.textContent = line.slice(0, ++ci);
+      if (ci === line.length) { deleting = true; setTimeout(tick, 1800); return; }
+    } else {
+      typedEl.textContent = line.slice(0, --ci);
+      if (ci === 0) { deleting = false; li = (li + 1) % lines.length; }
+    }
+    setTimeout(tick, deleting ? 35 : 60);
+  }
+  tick();
   </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
